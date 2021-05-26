@@ -97,3 +97,4 @@ end
 
 outputFile:write(emojiOutputString)         --write the output string of emojis to a file
 outputFile:close()                          --close the output file
+print("Done! Check your output file for emojis and enjoy :)")
