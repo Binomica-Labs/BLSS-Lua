@@ -1,9 +1,6 @@
 --handle passed arguments for later use 
 if #arg < 1 then
 	print("")
-	print("")
-	print("")
-	print("")
 	print("ProtEmoji v1.0 - Amino to Emoji Converter")
 	print("----------------------------------------------------------------------------")
 	print("")
@@ -31,9 +28,11 @@ emojiOutputString = ""
 proteinInputTable = {}
 emojiOutputTable = {}
 
+
+
 emojiCodex = 
 {
-    --Avoids Water
+    --Hydrophobic
     --Big
     W = "🐂",
     F = "🐎",
@@ -47,7 +46,7 @@ emojiCodex =
     M = "🌰",
     C = "🥜",
     G = "🥔",
-    --Loves Water
+    --Hydrophilic 
     --Polar
     S = "🐊",
     T = "🐸",
@@ -62,32 +61,39 @@ emojiCodex =
     H = "🐬"
 }
 
-function splitByChunk(text, chunkSize)
-    local s = {}
-        for i=1, #text, chunkSize do
+
+
+function splitByChunk(text, chunkSize)                  --basic function to split string into table of substrings 
+    local s = {}                                        --chunkSize denotes how long substring is; 1 = single char
+        for i=1, #text, chunkSize do                    --returns a table of substrings or chars
             s[#s+1] = text:sub(i,i+chunkSize - 1)
         end
         return s
 end
 
-firstLine = inputFile:read()
-proteinInputString = inputFile:read("*all")
-print("First line: " .. firstLine)
-inputFile:close()
 
-trimmedSequence = string.gsub(proteinInputString, firstLine, "")
 
-polishedSequence = string.upper(trimmedSequence:gsub("[\r\n]", ""))
-proteinInputTable = splitByChunk(polishedSequence, 1)
+firstLine = inputFile:read()                            --read first line of file (FASTA header)
+proteinInputString = inputFile:read("*all")             --read entire file as one string + all end of line chars
+inputFile:close()                                       --close file because we got what we need from it
 
-for i=1,#proteinInputTable do
-    for k, v in pairs(emojiCodex) do
-        if proteinInputTable[i] == k then
-            --emojiOutputTable[i] = v
-            emojiOutputString = emojiOutputString .. v
+trimmedSequence = string.gsub(proteinInputString, firstLine, "")        --remove the FASTA header
+
+polishedSequence = string.upper(trimmedSequence:gsub("[\r\n]", ""))     --remove new lines and carriage reture chars
+
+proteinInputTable = splitByChunk(polishedSequence, 1)                   --split protein seq into table of chars
+
+
+
+for i=1,#proteinInputTable do                               --for every amino letter in the table,
+    for k, v in pairs(emojiCodex) do                        
+        if proteinInputTable[i] == k then                   --if the letter matches a corresponding emoji in codex
+            emojiOutputString = emojiOutputString .. v      --append output string of emojis with corresponding emoji
         end
     end
 end
 
-outputFile:write(emojiOutputString)
-outputFile:close()
+
+
+outputFile:write(emojiOutputString)         --write the output string of emojis to a file
+outputFile:close()                          --close the output file
