@@ -4,9 +4,9 @@ if #arg < 1 then
 	print("ProtEmoji v1.0 - Amino to Emoji Converter")
 	print("----------------------------------------------------------------------------")
 	print("")
-	print("usage: lua " .. arg[0] .. " [protein file name] [output file name]  ")
+	print("usage: lua " .. arg[0] .. " [protein FASTA file name] [output file name]  ")
 	print("")
-	print("")
+	print("example input: lua protemoji.lua testProtein.faa testOutput.faa")
 	print("")
 	return
 end
