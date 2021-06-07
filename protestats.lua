@@ -110,6 +110,8 @@ for i = 1, #proteomeTable do
     end
 end
 
+
+
 for i = 1, #proteomeTable do
     local secondAmino = ""
     local proteinInputTable = splitByChunk(proteomeTable[i], 1)   
