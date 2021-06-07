@@ -133,3 +133,5 @@ for i = 1, #proteomeTable do
     outputFile:write(emojiLine) -- write the output string of emojis to a file
     emojiLine = ""
 end
+
+print("Total proteins in this proteome file: " .. #proteomeTable)

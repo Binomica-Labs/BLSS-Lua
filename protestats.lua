@@ -85,6 +85,7 @@ end
 
 local proteomeTable = parseProteome(inputFile)
 local aminoCountTable = {}
+local secondAminoCountTable = {}
 
 for i = 1, #proteomeTable do
 
@@ -97,7 +98,17 @@ for i = 1, #proteomeTable do
     end
 end
 
-
+for i = 1, #proteomeTable do
+    local secondAmino = ""
+    local proteinInputTable = splitByChunk(proteomeTable[i], 1)   
+     secondAmino = proteinInputTable[2]
+    
+     if secondAminoCountTable[secondAmino] then
+        secondAminoCountTable[secondAmino] = secondAminoCountTable[secondAmino] + 1
+    else
+        secondAminoCountTable[secondAmino] = 1
+    end
+end
 
 totalAminos = aminoCountTable["A"] +
               aminoCountTable["C"] +
@@ -120,26 +131,48 @@ totalAminos = aminoCountTable["A"] +
               aminoCountTable["W"] + 
               aminoCountTable["Y"]   
 
-print(totalAminos)
+totalSecondAminos = secondAminoCountTable["A"] +
+secondAminoCountTable["C"] +
+secondAminoCountTable["D"] + 
+secondAminoCountTable["E"] + 
+secondAminoCountTable["F"] + 
+secondAminoCountTable["G"] + 
+secondAminoCountTable["H"] + 
+secondAminoCountTable["I"] + 
+secondAminoCountTable["K"] + 
+secondAminoCountTable["L"] + 
+secondAminoCountTable["M"] + 
+secondAminoCountTable["N"] + 
+secondAminoCountTable["P"] + 
+secondAminoCountTable["Q"] + 
+secondAminoCountTable["R"] + 
+secondAminoCountTable["S"] + 
+secondAminoCountTable["T"] + 
+secondAminoCountTable["V"] + 
+secondAminoCountTable["W"] + 
+secondAminoCountTable["Y"]   
 
-outputFile:write("A" .. "," .. (aminoCountTable["A"]/totalAminos)*100 .. "\n")
-outputFile:write("C" .. "," .. (aminoCountTable["C"]/totalAminos)*100 .. "\n")
-outputFile:write("D" .. "," .. (aminoCountTable["D"]/totalAminos)*100 .. "\n")
-outputFile:write("E" .. "," .. (aminoCountTable["E"]/totalAminos)*100 .. "\n")
-outputFile:write("F" .. "," .. (aminoCountTable["F"]/totalAminos)*100 .. "\n")
-outputFile:write("G" .. "," .. (aminoCountTable["G"]/totalAminos)*100 .. "\n")
-outputFile:write("H" .. "," .. (aminoCountTable["H"]/totalAminos)*100 .. "\n")
-outputFile:write("I" .. "," .. (aminoCountTable["I"]/totalAminos)*100 .. "\n")
-outputFile:write("K" .. "," .. (aminoCountTable["K"]/totalAminos)*100 .. "\n")
-outputFile:write("L" .. "," .. (aminoCountTable["L"]/totalAminos)*100 .. "\n")
-outputFile:write("M" .. "," .. (aminoCountTable["M"]/totalAminos)*100 .. "\n")
-outputFile:write("N" .. "," .. (aminoCountTable["N"]/totalAminos)*100 .. "\n")
-outputFile:write("P" .. "," .. (aminoCountTable["P"]/totalAminos)*100 .. "\n")
-outputFile:write("Q" .. "," .. (aminoCountTable["Q"]/totalAminos)*100 .. "\n")
-outputFile:write("R" .. "," .. (aminoCountTable["R"]/totalAminos)*100 .. "\n")
-outputFile:write("S" .. "," .. (aminoCountTable["S"]/totalAminos)*100 .. "\n")
-outputFile:write("T" .. "," .. (aminoCountTable["T"]/totalAminos)*100 .. "\n")
-outputFile:write("V" .. "," .. (aminoCountTable["V"]/totalAminos)*100 .. "\n")
-outputFile:write("W" .. "," .. (aminoCountTable["W"]/totalAminos)*100 .. "\n")
-outputFile:write("Y" .. "," .. (aminoCountTable["Y"]/totalAminos)*100 .. "\n")
+print("Total AA: " .. totalAminos)
+print("Total Seecond AA: " .. totalSecondAminos)
+
+outputFile:write("A" .. "," .. (aminoCountTable["A"]/totalAminos)*100 .. "," .. (secondAminoCountTable["A"]/totalSecondAminos)*100 .. "\n")
+outputFile:write("C" .. "," .. (aminoCountTable["C"]/totalAminos)*100 .. "," .. (secondAminoCountTable["C"]/totalSecondAminos)*100 .. "\n")
+outputFile:write("D" .. "," .. (aminoCountTable["D"]/totalAminos)*100 .. "," .. (secondAminoCountTable["D"]/totalSecondAminos)*100 .. "\n")
+outputFile:write("E" .. "," .. (aminoCountTable["E"]/totalAminos)*100 .. "," .. (secondAminoCountTable["E"]/totalSecondAminos)*100 .. "\n")
+outputFile:write("F" .. "," .. (aminoCountTable["F"]/totalAminos)*100 .. "," .. (secondAminoCountTable["F"]/totalSecondAminos)*100 .. "\n")
+outputFile:write("G" .. "," .. (aminoCountTable["G"]/totalAminos)*100 .. "," .. (secondAminoCountTable["G"]/totalSecondAminos)*100 .. "\n")
+outputFile:write("H" .. "," .. (aminoCountTable["H"]/totalAminos)*100 .. "," .. (secondAminoCountTable["H"]/totalSecondAminos)*100 .. "\n")
+outputFile:write("I" .. "," .. (aminoCountTable["I"]/totalAminos)*100 .. "," .. (secondAminoCountTable["I"]/totalSecondAminos)*100 .. "\n")
+outputFile:write("K" .. "," .. (aminoCountTable["K"]/totalAminos)*100 .. "," .. (secondAminoCountTable["K"]/totalSecondAminos)*100 .. "\n")
+outputFile:write("L" .. "," .. (aminoCountTable["L"]/totalAminos)*100 .. "," .. (secondAminoCountTable["L"]/totalSecondAminos)*100 .. "\n")
+outputFile:write("M" .. "," .. (aminoCountTable["M"]/totalAminos)*100 .. "," .. (secondAminoCountTable["M"]/totalSecondAminos)*100 .. "\n")
+outputFile:write("N" .. "," .. (aminoCountTable["N"]/totalAminos)*100 .. "," .. (secondAminoCountTable["N"]/totalSecondAminos)*100 .. "\n")
+outputFile:write("P" .. "," .. (aminoCountTable["P"]/totalAminos)*100 .. "," .. (secondAminoCountTable["P"]/totalSecondAminos)*100 .. "\n")
+outputFile:write("Q" .. "," .. (aminoCountTable["Q"]/totalAminos)*100 .. "," .. (secondAminoCountTable["Q"]/totalSecondAminos)*100 .. "\n")
+outputFile:write("R" .. "," .. (aminoCountTable["R"]/totalAminos)*100 .. "," .. (secondAminoCountTable["R"]/totalSecondAminos)*100 .. "\n")
+outputFile:write("S" .. "," .. (aminoCountTable["S"]/totalAminos)*100 .. "," .. (secondAminoCountTable["S"]/totalSecondAminos)*100 .. "\n")
+outputFile:write("T" .. "," .. (aminoCountTable["T"]/totalAminos)*100 .. "," .. (secondAminoCountTable["T"]/totalSecondAminos)*100 .. "\n")
+outputFile:write("V" .. "," .. (aminoCountTable["V"]/totalAminos)*100 .. "," .. (secondAminoCountTable["V"]/totalSecondAminos)*100 .. "\n")
+outputFile:write("W" .. "," .. (aminoCountTable["W"]/totalAminos)*100 .. "," .. (secondAminoCountTable["W"]/totalSecondAminos)*100 .. "\n")
+outputFile:write("Y" .. "," .. (aminoCountTable["Y"]/totalAminos)*100 .. "," .. (secondAminoCountTable["Y"]/totalSecondAminos)*100 .. "\n")
 outputFile:close()
