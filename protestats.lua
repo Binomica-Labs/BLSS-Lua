@@ -86,6 +86,18 @@ end
 local proteomeTable = parseProteome(inputFile)
 local aminoCountTable = {}
 local secondAminoCountTable = {}
+local aminoRefTable = {"A","C","D","E","F","G","H","I","K","L","M","N","P","Q","R","S","T","V","W","Y"}
+
+
+
+for i=1, #aminoRefTable do
+    currentAmino = aminoRefTable[i]
+    print(currentAmino)
+    aminoCountTable[currentAmino] = 0
+    secondAminoCountTable[currentAmino] = 0
+end
+
+
 
 for i = 1, #proteomeTable do
 
@@ -110,6 +122,8 @@ for i = 1, #proteomeTable do
     end
 end
 
+
+
 totalAminos = aminoCountTable["A"] +
               aminoCountTable["C"] +
               aminoCountTable["D"] + 
@@ -131,26 +145,28 @@ totalAminos = aminoCountTable["A"] +
               aminoCountTable["W"] + 
               aminoCountTable["Y"]   
 
+
+
 totalSecondAminos = secondAminoCountTable["A"] +
-secondAminoCountTable["C"] +
-secondAminoCountTable["D"] + 
-secondAminoCountTable["E"] + 
-secondAminoCountTable["F"] + 
-secondAminoCountTable["G"] + 
-secondAminoCountTable["H"] + 
-secondAminoCountTable["I"] + 
-secondAminoCountTable["K"] + 
-secondAminoCountTable["L"] + 
-secondAminoCountTable["M"] + 
-secondAminoCountTable["N"] + 
-secondAminoCountTable["P"] + 
-secondAminoCountTable["Q"] + 
-secondAminoCountTable["R"] + 
-secondAminoCountTable["S"] + 
-secondAminoCountTable["T"] + 
-secondAminoCountTable["V"] + 
-secondAminoCountTable["W"] + 
-secondAminoCountTable["Y"]   
+                    secondAminoCountTable["C"] +
+                    secondAminoCountTable["D"] + 
+                    secondAminoCountTable["E"] + 
+                    secondAminoCountTable["F"] + 
+                    secondAminoCountTable["G"] + 
+                    secondAminoCountTable["H"] + 
+                    secondAminoCountTable["I"] + 
+                    secondAminoCountTable["K"] + 
+                    secondAminoCountTable["L"] + 
+                    secondAminoCountTable["M"] + 
+                    secondAminoCountTable["N"] + 
+                    secondAminoCountTable["P"] + 
+                    secondAminoCountTable["Q"] + 
+                    secondAminoCountTable["R"] + 
+                    secondAminoCountTable["S"] + 
+                    secondAminoCountTable["T"] + 
+                    secondAminoCountTable["V"] + 
+                    secondAminoCountTable["W"] + 
+                    secondAminoCountTable["Y"]   
 
 print("Total AA: " .. totalAminos)
 print("Total Seecond AA: " .. totalSecondAminos)
