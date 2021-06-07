@@ -82,7 +82,7 @@ function parseProteome(proteomeFile)
 end
 
 
-
+--local variables
 local proteomeTable = parseProteome(inputFile)
 local aminoCountTable = {}
 local secondAminoCountTable = {}
@@ -90,33 +90,34 @@ local aminoRefTable = {"A","C","D","E","F","G","H","I","K","L","M","N","P","Q","
 
 
 
+--fill tables with zeros to avoid edge case where respective amino is not present
 for i=1, #aminoRefTable do
     currentAmino = aminoRefTable[i]
-    print(currentAmino)
     aminoCountTable[currentAmino] = 0
     secondAminoCountTable[currentAmino] = 0
 end
 
 
-
+--count the amino acids present in the proteome table
 for i = 1, #proteomeTable do
 
-    for amino in string.gmatch(proteomeTable[i], "%w") do
-        if aminoCountTable[amino] then
-            aminoCountTable[amino] = aminoCountTable[amino] + 1
+    for amino in string.gmatch(proteomeTable[i], "%w") do               --for each amino in the protein string cut by %w (alphanumeric chars) 
+        if aminoCountTable[amino] then                                  --if there is an amino in the protein in the aminoCountTable table
+            aminoCountTable[amino] = aminoCountTable[amino] + 1         --increment the count
         else
-            aminoCountTable[amino] = 1
+            aminoCountTable[amino] = 1                                  --if the specified amino is not there, ensure it gets counted
         end
     end
 end
 
 
-
-for i = 1, #proteomeTable do
+--count the aminos at position 2 in each protein
+for i = 1, #proteomeTable do                                        --for every protein in the proteomeTable
     local secondAmino = ""
-    local proteinInputTable = splitByChunk(proteomeTable[i], 1)   
-     secondAmino = proteinInputTable[2]
+    local proteinInputTable = splitByChunk(proteomeTable[i], 1)     --cut up the current protein into aminos
+     secondAmino = proteinInputTable[2]                             --secondAmino is element 2 in the proteinInputTable
     
+    --increment the amino acid count
      if secondAminoCountTable[secondAmino] then
         secondAminoCountTable[secondAmino] = secondAminoCountTable[secondAmino] + 1
     else
@@ -125,7 +126,7 @@ for i = 1, #proteomeTable do
 end
 
 
-
+--sum all the counted aminos
 totalAminos = aminoCountTable["A"] +
               aminoCountTable["C"] +
               aminoCountTable["D"] + 
@@ -148,7 +149,8 @@ totalAminos = aminoCountTable["A"] +
               aminoCountTable["Y"]   
 
 
-
+              
+--sum all the second position aminos
 totalSecondAminos = secondAminoCountTable["A"] +
                     secondAminoCountTable["C"] +
                     secondAminoCountTable["D"] + 
@@ -173,6 +175,7 @@ totalSecondAminos = secondAminoCountTable["A"] +
 print("Total AA: " .. totalAminos)
 print("Total Seecond AA: " .. totalSecondAminos)
 
+outputFile:write("Amino Acid" .. "," .. "Total Aminos" .. "," .. "2nd Position Aminos" .. "\n")
 outputFile:write("A" .. "," .. (aminoCountTable["A"]/totalAminos)*100 .. "," .. (secondAminoCountTable["A"]/totalSecondAminos)*100 .. "\n")
 outputFile:write("C" .. "," .. (aminoCountTable["C"]/totalAminos)*100 .. "," .. (secondAminoCountTable["C"]/totalSecondAminos)*100 .. "\n")
 outputFile:write("D" .. "," .. (aminoCountTable["D"]/totalAminos)*100 .. "," .. (secondAminoCountTable["D"]/totalSecondAminos)*100 .. "\n")
