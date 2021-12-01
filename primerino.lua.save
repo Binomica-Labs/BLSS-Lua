@@ -1,8 +1,3 @@
---[[
-
-Copyright 2021 - Sebastian S. Cocioba - Binomica Labs
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
@@ -14,12 +9,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 --handle passed arguments for later use 
 if #arg < 1 then
 	print("")
-	print("Primerino v0.2 - Primer3 Interactive CLI App")
+	print("Primerino v1.0 - Primer3 Interactive CLI App")
 	print("----------------------------------------------------------------------------")
 	print("")
-	print("usage: lua " .. arg[0] .. " detect ")
+	print("usage: lua " .. arg[0] .. " [reference DNA file or copy-paste] [target sequence file or copy-paste]  ")
 	print("")
-	print("Please note this is still in development. Do not use generated data for actual research yet!")
+	print("example input: lua primerino.lua testDNA.fasta targetAmplicon.fasta")
 	print("")
 	return
 end
@@ -60,7 +55,7 @@ local function makeDetectionPrimers()
 
 	print("Welcome to an interactive Lua wrapper for Primer3!")
 	print("")
---[[	print("Let's start by telling me the sequence or file name you wish to use as a reference.")
+	print("Let's start by telling me the sequence or file name you wish to use as a reference.")
 	print("This can be any DNA sequence in FASTA format. If you want to copy/paste a sequence manually, you can do that as well.")
 	print("")
 	
@@ -75,9 +70,7 @@ local function makeDetectionPrimers()
 	end	
 	
 	print("")
-]]--
-	print("Tell me the file name or, if you feel brave, copy and paste the sequence")
-	print("information directly. Be sure to use only single FASTA entries for now.")
+	print("Now tell me the file name or sequence you wish to amplify. This is a smaller subsection of the reference sequence and must be present in the file in order for the primer generation to work.")
 
 	io.write("Please type in a file name or sequence here: ")
 
@@ -91,9 +84,9 @@ local function makeDetectionPrimers()
 	end
 	
 	print("")
-	--print("length of refSeq: " .. refSeq:len())
-	print("Input Sequence Length: " .. amplicon:len())
-	print("")
+	print("length of refSeq: " .. refSeq:len())
+	print("lenght of amplicon: " .. amplicon:len())
+
 	print("At what temp do you wish to anneal your primers? Default is 60 degrees Celsius.")
 
 	io.write("Please type in a temperature here: ")
@@ -127,10 +120,10 @@ local function makeDetectionPrimers()
 	end
 	detectionFile:close()
 	
-	os.execute("./primer3 DET\n")	--run primer3's core binary from the terminal using file called "DET" (temporary settings file)
+	os.execute("primer3_core DET\n")	--run primer3's core binary from the terminal using file called "DET" (temporary settings file)
 end 
 
-if arg[1] == "detect" then
+if arg[1] == "detection" then
 	makeDetectionPrimers()
 end
 
