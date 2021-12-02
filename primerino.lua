@@ -79,7 +79,7 @@ local function makeDetectionPrimers()
 	print("At what temp do you wish to anneal your primers? Default is 60 degrees Celsius.")
 
 	io.write("Please type in a temperature here: ")
-	local idealTemp = io.read()
+	local idealAnnealingTemp = io.read()
 
 	print("")
 	print("How long should your oligos be? Typically 25bp gives nice unique sequences.")
